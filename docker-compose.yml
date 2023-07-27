@@ -1,0 +1,24 @@
+version: "3.9"
+services:
+  my-sql:
+    image: mysql:8.0
+    ports:
+      - "3309:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: ohayo_community
+      MYSQL_USER: ohayo
+      MYSQL_PASSWORD: ohayo
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - my-sql:my-sql
+    ports:
+      - 8087:80
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+      PMA_HOST: my-sql
